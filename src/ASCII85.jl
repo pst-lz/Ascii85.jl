@@ -31,7 +31,7 @@ export ascii85dec!
                 if segtemp <= 4294967296
                     seg = segtemp
                     write(out, ntoh(seg))
-                    # println(seg)
+                    println(seg)
                     i = 0
                     segtemp = 0
                 else
@@ -69,13 +69,15 @@ export ascii85dec!
                 println("~ without >")
                 break # irregular end
             end
-        elseif b == 'Z' # regular Z
-            if i == 0 # regular Z
+        elseif b == 122 # regular z
+            if i == 0 # regular z
                 seg = 0
                 write(out, seg)
+                println(seg)
+                println("regular z")
             else
-                println("irregular Z")
-                break # irregular Z
+                println("irregular z")
+                break # irregular z
             end
         elseif (b > 117 && b <= 121) || (b >= 123 && b <= 125) || b >= 127
             println("irregular Char")
