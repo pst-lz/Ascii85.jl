@@ -71,7 +71,7 @@ end
     push!(binaryhex, "123456780000000012345678abcd")
     push!(a85binary, "<~&i<X6z&i<X6X3C~>")
 
-    # decode
+    # decode ascii85dec!
     for i in 1:length(a85binary)
         io1 = IOBuffer(a85binary[i])
         io2 = IOBuffer()
@@ -81,6 +81,16 @@ end
         close(io1)
         close(io2)
     end
+
+    # decode ascii85dec
+    for i in 1:length(a85binary)
+        a85barr = zeros(UInt8, length(a85binary[i]))
+        for j in 1:length(a85binary[i])
+            a85barr[j] = a85binary[i][j]
+        end
+        @test ascii85dec(a85arr) == hex2bytes(binaryhex[i])
+    end
+
 end
 
 
