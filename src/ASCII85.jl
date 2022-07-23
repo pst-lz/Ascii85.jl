@@ -69,13 +69,13 @@ export ascii85dec!
                 println("~ without >")
                 break # irregular end
             end
-        elseif b == 'z' # regular z
-            if i == 0 # regular z
+        elseif b == 'Z' # regular Z
+            if i == 0 # regular Z
                 seg = 0
                 write(out, seg)
             else
-                println("irregular z")
-                break # irregular z
+                println("irregular Z")
+                break # irregular Z
             end
         elseif (b > 117 && b <= 121) || (b >= 123 && b <= 125) || b >= 127
             println("irregular Char")

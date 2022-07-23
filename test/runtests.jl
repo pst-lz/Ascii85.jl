@@ -51,6 +51,29 @@ a85text = Array{String}(undef, 0)
     end
 end
 
+@testset "binary" begin
+    binaryhex = Array{String}(undef, 0)
+    a85binary = Array{String}(undef, 0)
+
+    push!(binaryhex, "123456780000000012345678abcd")
+    push!(a85binary, "<~&i<X6z&i<X6X3C~>")
+
+    # decode
+    for i in 1:length(a85binary)
+        io1 = IOBuffer(a85binary[i])
+        io2 = IOBuffer()
+        ascii85dec!(io1, io2)
+        seekstart(io2)
+        @test String(read(io2)) == String(hex2bytes(binaryhex[i]))
+        close(io1)
+        close(io2)
+    end
+end
+
+
+
+
+
 
 
 
