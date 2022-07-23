@@ -88,7 +88,7 @@ end
         for j in 1:length(a85binary[i])
             a85barr[j] = a85binary[i][j]
         end
-        @test ascii85dec(a85arr) == hex2bytes(binaryhex[i])
+        @test ascii85dec(a85barr) == hex2bytes(binaryhex[i])
     end
 
 end
