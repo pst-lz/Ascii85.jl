@@ -31,7 +31,7 @@ export ascii85dec!
                 if segtemp <= 4294967296
                     seg = segtemp
                     write(out, ntoh(seg))
-                    println(seg)
+                    # println(seg)
                     i = 0
                     segtemp = 0
                 else

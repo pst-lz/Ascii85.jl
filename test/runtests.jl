@@ -1,6 +1,6 @@
 using Test, ASCII85
 
-#@testset "tests with correct pairs of text" begin
+@testset "tests with correct pairs of text" begin
 plaintext = Array{String}(undef, 0)
 a85text = Array{String}(undef, 0)
 
@@ -44,11 +44,12 @@ a85text = Array{String}(undef, 0)
         io1 = IOBuffer(a85text[i])
         io2 = IOBuffer()
         ascii85dec!(io1, io2)
+        seekstart(io2)
         @test String(read(io2)) == plaintext[i]
         close(io1)
         close(io2)
     end
-#end
+end
 
 
 
