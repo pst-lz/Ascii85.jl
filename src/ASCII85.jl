@@ -88,13 +88,13 @@ end
 function ascii85dec(in::Array{UInt8})
     # for Bytearray with <~ ASCII85 ~>
     out = Array{UInt8}(undef, 0)
-    start = 3
-    # for k in 1:length(in)
-    #     if in[k] == 60 && in[k + 1] == 126
-    #         start = k + 2
-    #         break
-    #     end
-    # end
+    start = 1
+    for k in 1:length(in)
+        if in[k] == 60 && in[k + 1] == 126
+            start = k + 2
+            break
+        end
+    end
     seg::UInt32 = 0
     segtemp::UInt64 = 0
     byte1 = 0xff000000
@@ -166,6 +166,7 @@ function ascii85dec(in::Array{UInt8})
             break # irregular Char
         end # 0 to 32 whitespace to be ignored
     end
+    return out
 end
 
 end # module
