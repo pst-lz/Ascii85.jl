@@ -2,7 +2,7 @@ module ASCII85
 
 # https://en.wikipedia.org/wiki/Ascii85
 
-export ascii85dec!
+export ascii85dec!, ascii85dec
 
 function ascii85dec!(in::IO, out::IO)
     # for IO with <~ ASCII85 ~>

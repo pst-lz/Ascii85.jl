@@ -39,7 +39,7 @@ a85text = Array{String}(undef, 0)
     push!(plaintext, "1234567890")
     push!(a85text, "<~0etOA2)[BQ3A:~>")
 
-    # decode
+    # decode ascii85dec!
     for i in 1:length(plaintext)
         io1 = IOBuffer(a85text[i])
         io2 = IOBuffer()
@@ -48,6 +48,11 @@ a85text = Array{String}(undef, 0)
         @test String(read(io2)) == plaintext[i]
         close(io1)
         close(io2)
+    end
+
+    # decode ascii85dec
+    for i in 1:length(plaintext)
+        @test ascii85dec(a85text[i]) == plaintext[i]
     end
 end
 
