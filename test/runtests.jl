@@ -55,6 +55,7 @@ a85text = Array{String}(undef, 0)
         a85arr = zeros(UInt8, length(a85text[i]))
         for j in 1:length(a85text[i])
             a85arr[j] = a85text[i][j]
+            println(a85arr[j])
         end
         @test ascii85dec(a85arr) == plaintext[i]
     end
