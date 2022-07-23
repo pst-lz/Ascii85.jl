@@ -53,10 +53,14 @@ a85text = Array{String}(undef, 0)
     # decode ascii85dec
     for i in 1:length(plaintext)
         a85arr = zeros(UInt8, length(a85text[i]))
+        plainarr = zeros(UInt8, length(plaintext[i]))
         for j in 1:length(a85text[i])
             a85arr[j] = a85text[i][j]
         end
-        @test ascii85dec(a85arr) == plaintext[i]
+        for j in 1:length(plaintext[i])
+            plainarr[j] = plaintext[i][j]
+        end
+        @test ascii85dec(a85arr) == plainarr[i]
     end
 end
 
