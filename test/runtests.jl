@@ -52,11 +52,11 @@ a85text = Array{String}(undef, 0)
 
     # decode ascii85dec
     for i in 1:length(plaintext)
-        a85arr :: Array{UInt8}(undef, length(plaintext[i]))
+        a85arr = zeros(UInt8, length(a85text[i]))
         for j in 1:length(a85text[i])
-            a85arr[j] = a85text[i]
+            a85arr[j] = a85text[i][j]
         end
-        @test ascii85dec(a85arr[i]) == plaintext[i]
+        @test ascii85dec(a85arr) == plaintext[i]
     end
 end
 
