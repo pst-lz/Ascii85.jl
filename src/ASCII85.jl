@@ -87,7 +87,7 @@ end
 
 function ascii85dec(in::Array{UInt8})
     # for Bytearray with <~ ASCII85 ~>
-    out :: Array{UInt8}(undef, 0)
+    out = Array{UInt8}(undef, 0)
     start = 0
     for k in 1:length(in)
         if in[k] == 60 && in[k + 1] == 126
