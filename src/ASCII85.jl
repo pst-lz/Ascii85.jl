@@ -34,12 +34,10 @@ function ascii85enc!(in::IO, out::IO)
         padding += 1
     end
     seg = UInt32(inarr[1+4*(numseg-1)]) << 24 + UInt32(inarr[2+4*(numseg-1)]) << 16 + UInt32(inarr[3+4*(numseg-1)]) << 8 + inarr[4+4*(numseg-1)]
-    for i in 1:(5 - paading)
+    for i in 1:(5 - padding)
         write(out, segenc[i])
     end
     write(out, "~>")
-
-
 end
 
 function ascii85dec!(in::IO, out::IO)
