@@ -8,10 +8,12 @@ function ascii85enc!(in::IO, out::IO)
     seekstart(in)
     seekstart(out)
     write(out, "<~")
+    inarr = readbytes!(in)
     seg :: UInt32 = 0
     segenc = zeros(UInt8, 5)
-    while !eof(in)
-        seg = ntoh(read(in, UInt32))
+    numseg = lenght(inarr) ÷ 4
+    for j in 1:numseg
+        seg = UInt32(inarr[1+4*(numseg-1)]) << 24 + UInt32(inarr[2+4*(numseg-1)]) << 16 + UInt32(inarr[3+4*(numseg-1)]) << 8 + inarr[4+4*(numseg-1)]
         if seg == 0
             write(out, 'z')
         else
@@ -24,6 +26,15 @@ function ascii85enc!(in::IO, out::IO)
         for i in 1:5
             write(out, segenc[i])
         end
+    end
+    padding = 0
+    while lenght(inarr) % 4 !=0
+        push!(inarr, 0)
+        padding += 1
+    end
+    seg = UInt32(inarr[1+4*(numseg-1)]) << 24 + UInt32(inarr[2+4*(numseg-1)]) << 16 + UInt32(inarr[3+4*(numseg-1)]) << 8 + inarr[4+4*(numseg-1)]
+    for i in 1:(5 - paading)
+        write(out, segenc[i])
     end
     write(out, "~>")
 
