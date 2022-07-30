@@ -38,7 +38,7 @@ function ascii85enc!(in::IO, out::IO)
     end
     println(inarr)
     if padding != 0
-        seg = UInt32(inarr[1]) << 24 + UInt32(inarr[2]) << 16 + UInt32(inarr[3]) << 8 + inarr[4]
+        seg = UInt32(inarr[1 + numseg * 4]) << 24 + UInt32(inarr[2 + numseg * 4]) << 16 + UInt32(inarr[3 + numseg * 4]) << 8 + inarr[4 + numseg * 4]
     end
     for i in 1:4
         segenc[6 - i] = (seg % 85) + 33
