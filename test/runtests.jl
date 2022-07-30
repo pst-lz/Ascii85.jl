@@ -39,7 +39,7 @@ a85text = Array{String}(undef, 0)
     push!(plaintext, "1234567890")
     push!(a85text, "<~0etOA2)[BQ3A:~>")
 
-    # decode ascii85enc!
+    # encode ascii85enc!
     for i in 1:length(plaintext)
         io1 = IOBuffer(plaintext[i])
         io2 = IOBuffer()
@@ -82,13 +82,24 @@ end
     push!(binaryhex, "123456780000000012345678abcd")
     push!(a85binary, "<~&i<X6z&i<X6X3C~>")
 
+    # encode ascii85enc!
+    for i in 1:length(plaintext)
+        io1 = IOBuffer(plaintext[i])
+        io2 = IOBuffer()
+        ascii85enc!(io1, io2)
+        seekstart(io2)
+        @test String(read(io2)) == a85text[i]
+        close(io1)
+        close(io2)
+    end
+
     # decode ascii85dec!
-    for i in 1:length(a85binary)
-        io1 = IOBuffer(a85binary[i])
+    for i in 1:(binaryhex[i] ÷ 2)
+        io1 = IOBuffer(ex2bytes(binaryhex[i]))
         io2 = IOBuffer()
         ascii85dec!(io1, io2)
         seekstart(io2)
-        @test String(read(io2)) == String(hex2bytes(binaryhex[i]))
+        @test String(read(io2)) == a85binary[i]
         close(io1)
         close(io2)
     end
