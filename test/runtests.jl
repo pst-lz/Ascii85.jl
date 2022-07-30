@@ -83,7 +83,7 @@ end
     push!(a85binary, "<~&i<X6z&i<X6X3C~>")
 
     # enc ascii85enc!
-    for i in 1:(length(binaryhex) ÷ 2)
+    for i in 1:length(binaryhex)
         io1 = IOBuffer(hex2bytes(binaryhex[i]))
         io2 = IOBuffer()
         ascii85enc!(io1, io2)
