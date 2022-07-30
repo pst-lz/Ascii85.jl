@@ -10,7 +10,6 @@ function ascii85enc!(in::IO, out::IO)
     write(out, "<~")
     inarr = Array{UInt8}(undef, 0)
     inarr = read(in)
-    println(inarr)
     seg :: UInt32 = 0
     segenc = zeros(UInt8, 5)
     numseg = length(inarr) ÷ 4
@@ -36,7 +35,6 @@ function ascii85enc!(in::IO, out::IO)
         push!(inarr, 0)
         padding += 1
     end
-    println(inarr)
     if padding != 0
         seg = UInt32(inarr[1 + numseg * 4]) << 24 + UInt32(inarr[2 + numseg * 4]) << 16 + UInt32(inarr[3 + numseg * 4]) << 8 + inarr[4 + numseg * 4]
         for i in 1:4
@@ -45,7 +43,6 @@ function ascii85enc!(in::IO, out::IO)
         end
         segenc[1] = seg +33
         for i in 1:(5 - padding)
-            println(segenc[i])
             write(out, segenc[i])
         end
     end
@@ -79,7 +76,6 @@ function ascii85dec!(in::IO, out::IO)
                 if segtemp <= 4294967296
                     seg = segtemp
                     write(out, ntoh(seg))
-                    # println(seg)
                     i = 0
                     segtemp = 0
                 else
@@ -88,11 +84,8 @@ function ascii85dec!(in::IO, out::IO)
                 end 
             end
         elseif b == 126 # ~
-            # println('~')
             b = read(in, UInt8)
-            # println(b)
             if b == 62 # finish mark ~>
-                # println(i)
                 if i > 0
                     b = 117
                     for j in i:4
@@ -120,8 +113,6 @@ function ascii85dec!(in::IO, out::IO)
             if i == 0 # regular z
                 seg = 0
                 write(out, seg)
-                # println(seg)
-                # println("regular z")
             else
                 error("irregular placed z")
                 break # irregular z
@@ -162,7 +153,6 @@ function ascii85dec(in::Array{UInt8})
                     push!(out, (seg & byte2) >> 16)
                     push!(out, (seg & byte3) >> 8)
                     push!(out, seg & byte4)
-                    # println(seg)
                     i = 0
                     segtemp = 0
                 else
@@ -171,9 +161,7 @@ function ascii85dec(in::Array{UInt8})
                 end 
             end
         elseif b == 126 # ~
-            # println('~')
             if in[k+1] == 62 # finish mark ~>
-                # println(i)
                 if i > 0
                     b = 117
                     for j in i:4
@@ -204,7 +192,6 @@ function ascii85dec(in::Array{UInt8})
                 for j in 1:4
                     push!(out, 0)
                 end
-                # println("regular z")
             else
                 error("irregular placed z")
                 break # irregular z
