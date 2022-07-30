@@ -13,19 +13,21 @@ function ascii85enc!(in::IO, out::IO)
     seg :: UInt32 = 0
     segenc = zeros(UInt8, 5)
     numseg = length(inarr) ÷ 4
-    for j in 1:numseg
-        seg = UInt32(inarr[1+4*(numseg-1)]) << 24 + UInt32(inarr[2+4*(numseg-1)]) << 16 + UInt32(inarr[3+4*(numseg-1)]) << 8 + inarr[4+4*(numseg-1)]
-        if seg == 0
-            write(out, 'z')
-        else
-            for i in 1:4
-                segenc[6 - i] = (seg % 85) + 33
-                seg ÷= 85
+    if numseg >= 1
+        for j in 1:numseg
+            seg = UInt32(inarr[1+4*(numseg-1)]) << 24 + UInt32(inarr[2+4*(numseg-1)]) << 16 + UInt32(inarr[3+4*(numseg-1)]) << 8 + inarr[4+4*(numseg-1)]
+            if seg == 0
+                write(out, 'z')
+            else
+                for i in 1:4
+                    segenc[6 - i] = (seg % 85) + 33
+                    seg ÷= 85
+                end
+                segenc[1] = seg +33
             end
-            segenc[1] = seg +33
-        end
-        for i in 1:5
-            write(out, segenc[i])
+            for i in 1:5
+                write(out, segenc[i])
+            end
         end
     end
     padding = 0
