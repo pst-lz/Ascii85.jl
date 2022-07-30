@@ -41,7 +41,8 @@ function ascii85enc!(in::IO, out::IO)
         seg = UInt32(inarr[1]) << 24 + UInt32(inarr[2]) << 16 + UInt32(inarr[3]) << 8 + inarr[4]
     end
     for i in 1:(5 - padding)
-        write(out, Char(segenc[i]))
+        println(segenc)
+        write(out, segenc[i])
     end
     write(out, "~>")
 end
