@@ -39,15 +39,15 @@ function ascii85enc!(in::IO, out::IO)
     println(inarr)
     if padding != 0
         seg = UInt32(inarr[1 + numseg * 4]) << 24 + UInt32(inarr[2 + numseg * 4]) << 16 + UInt32(inarr[3 + numseg * 4]) << 8 + inarr[4 + numseg * 4]
-    end
-    for i in 1:4
-        segenc[6 - i] = (seg % 85) + 33
-        seg ÷= 85
-    end
-    segenc[1] = seg +33
-    for i in 1:(5 - padding)
-        println(segenc[i])
-        write(out, segenc[i])
+        for i in 1:4
+            segenc[6 - i] = (seg % 85) + 33
+            seg ÷= 85
+        end
+        segenc[1] = seg +33
+        for i in 1:(5 - padding)
+            println(segenc[i])
+            write(out, segenc[i])
+        end
     end
     write(out, "~>")
 end
