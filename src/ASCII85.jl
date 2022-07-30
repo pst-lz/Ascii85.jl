@@ -25,9 +25,9 @@ function ascii85enc!(in::IO, out::IO)
                     seg ÷= 85
                 end
                 segenc[1] = seg +33
-            end
-            for i in 1:5
-                write(out, segenc[i])
+                for i in 1:5
+                    write(out, segenc[i])
+                end
             end
         end
     end
