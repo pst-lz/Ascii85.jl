@@ -10,6 +10,7 @@ function ascii85enc!(in::IO, out::IO)
     write(out, "<~")
     inarr = Array{UInt8}(undef, 0)
     inarr = read(in)
+    println(inarr)
     seg :: UInt32 = 0
     segenc = zeros(UInt8, 5)
     numseg = length(inarr) ÷ 4
@@ -35,6 +36,7 @@ function ascii85enc!(in::IO, out::IO)
         push!(inarr, 0)
         padding += 1
     end
+    println(inarr)
     if padding != 0
         seg = UInt32(inarr[1+4*(numseg-1)]) << 24 + UInt32(inarr[2+4*(numseg-1)]) << 16 + UInt32(inarr[3+4*(numseg-1)]) << 8 + inarr[4+4*(numseg-1)]
     end
