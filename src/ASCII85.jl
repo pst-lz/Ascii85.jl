@@ -8,7 +8,7 @@ function ascii85enc!(in::IO, out::IO)
     seekstart(in)
     seekstart(out)
     write(out, "<~")
-    seg :: UInt32
+    seg :: UInt32 = 0
     segenc = zeros(5, UInt8)
     while !eof(in)
         seg = ntoh(read(in, UInt32))
