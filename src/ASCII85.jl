@@ -2,7 +2,33 @@ module ASCII85
 
 # https://en.wikipedia.org/wiki/Ascii85
 
-export ascii85dec!, ascii85dec
+export ascii85enc!, ascii85dec!, ascii85dec
+
+function ascii85enc!(in::IO, out::IO)
+    seekstart(in)
+    seekstart(out)
+    write(out, "<~")
+    seg :: UInt32
+    segenc = zeros(5, UInt8)
+    while !eof(in)
+        seg = ntoh(read(in, UInt32))
+        if seg == 0
+            write(out, 'z')
+        else
+            for i in 1:4
+                segenc[6 - i] = (seg % 85) + 33
+                seg ÷= 85
+            end
+            segenc[1] = seg +33
+        end
+        for i in 1:5
+            write(out, segenc[i])
+        end
+    end
+    write(out, "~>")
+
+
+end
 
 function ascii85dec!(in::IO, out::IO)
     # for IO with <~ ASCII85 ~>
