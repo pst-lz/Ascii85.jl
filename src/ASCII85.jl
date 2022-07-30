@@ -16,7 +16,7 @@ function ascii85enc!(in::IO, out::IO)
     numseg = length(inarr) ÷ 4
     if numseg >= 1
         for j in 1:numseg
-            seg = UInt32(inarr[1+4*(numseg-1)]) << 24 + UInt32(inarr[2+4*(numseg-1)]) << 16 + UInt32(inarr[3+4*(numseg-1)]) << 8 + inarr[4+4*(numseg-1)]
+            seg = UInt32(inarr[1+4*(j-1)]) << 24 + UInt32(inarr[2+4*(j-1)]) << 16 + UInt32(inarr[3+4*(j-1)]) << 8 + inarr[4+4*(j-1)]
             if seg == 0
                 write(out, 'z')
             else
