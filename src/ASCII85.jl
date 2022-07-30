@@ -40,6 +40,11 @@ function ascii85enc!(in::IO, out::IO)
     if padding != 0
         seg = UInt32(inarr[1]) << 24 + UInt32(inarr[2]) << 16 + UInt32(inarr[3]) << 8 + inarr[4]
     end
+    for i in 1:4
+        segenc[6 - i] = (seg % 85) + 33
+        seg ÷= 85
+    end
+    segenc[1] = seg +33
     for i in 1:(5 - padding)
         println(segenc[i])
         write(out, segenc[i])
