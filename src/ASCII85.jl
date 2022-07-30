@@ -29,10 +29,10 @@ function ascii85enc!(in::IO, out::IO)
         end
     end
     padding = 0
-    while length(inarr) % 4 !=0
-        push!(inarr, 0)
-        padding += 1
-    end
+    # while length(inarr) % 4 !=0
+    #     push!(inarr, 0)
+    #     padding += 1
+    # end
     if padding != 0
         seg = UInt32(inarr[1+4*(numseg-1)]) << 24 + UInt32(inarr[2+4*(numseg-1)]) << 16 + UInt32(inarr[3+4*(numseg-1)]) << 8 + inarr[4+4*(numseg-1)]
     end
