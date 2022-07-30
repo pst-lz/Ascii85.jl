@@ -8,6 +8,7 @@ function ascii85enc!(in::IO, out::IO)
     seekstart(in)
     seekstart(out)
     write(out, "<~")
+    inarr = Array{UInt8}(undef, 0)
     inarr = readbytes!(in)
     seg :: UInt32 = 0
     segenc = zeros(UInt8, 5)
