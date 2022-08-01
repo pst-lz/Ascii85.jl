@@ -129,13 +129,18 @@ end
         close(io2)
     end
 
-    # decode ascii85dec
+    # decode ascii85dec Array{UInt8}
     for i in 1:length(a85binary)
         a85barr = zeros(UInt8, length(a85binary[i]))
         for j in 1:length(a85binary[i])
             a85barr[j] = a85binary[i][j]
         end
         @test ascii85dec(a85barr) == hex2bytes(binaryhex[i])
+    end
+
+    # decode ascii85dec String
+    for i in 1:length(a85binary)
+        @test ascii85dec(a85binary[i]) == hex2bytes(binaryhex[i])
     end
 
 end
