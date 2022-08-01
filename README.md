@@ -1,4 +1,4 @@
-# ASCII85.jl
+# Ascii85.jl
 ASCII85 in Julia
 
 Encode and decoce ASCII85 (Adobe version) in Julia.
