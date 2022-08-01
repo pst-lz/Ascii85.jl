@@ -1,4 +1,4 @@
-name = "ASCII85"
+name = "Ascii85"
 uuid = "d66a24ed-3b8b-4cb5-acc0-191d405a6575"
 authors = ["pst-lz <p.stehring@gmail.com>"]
 version = "0.1.0"
