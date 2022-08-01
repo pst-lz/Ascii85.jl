@@ -1,4 +1,4 @@
-using Test, ASCII85
+using Test, Ascii85
 
 @testset "tests with correct pairs of text" begin
 plaintext = Array{String}(undef, 0)
