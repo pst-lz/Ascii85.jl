@@ -2,7 +2,7 @@ module ASCII85
 
 # https://en.wikipedia.org/wiki/Ascii85
 
-export ascii85enc!, ascii85dec!, ascii85dec
+export ascii85enc!, ascii85dec!, ascii85enc, ascii85dec
 
 function ascii85enc!(in::IO, out::IO)
     seekstart(in)
