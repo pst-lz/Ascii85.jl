@@ -49,6 +49,15 @@ a85text = Array{String}(undef, 0)
         close(io1)
         close(io2)
     end
+
+    # enc ascii85enc
+    for i in 1:length(plaintext)
+        plainarr = zeros(UInt8, length(plaintext[i]))
+        for j in 1:length(plaintext[i])
+            plainarr[j] = plaintext[i][j]
+        end
+        @test ascii85enc(plainarr) = a85text[i]    
+    end
     
     # decode ascii85dec!
     for i in 1:length(plaintext)
