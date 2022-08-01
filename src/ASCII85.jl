@@ -1,4 +1,4 @@
-module ASCII85
+module Ascii85
 
 # https://en.wikipedia.org/wiki/Ascii85
 
