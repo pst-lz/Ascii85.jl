@@ -50,7 +50,7 @@ a85text = Array{String}(undef, 0)
         close(io2)
     end
 
-    # enc ascii85enc Array{UInt8}
+    # enc ascii85enc
     for i in 1:length(plaintext)
         plainarr = zeros(UInt8, length(plaintext[i]))
         for j in 1:length(plaintext[i])
@@ -70,7 +70,7 @@ a85text = Array{String}(undef, 0)
         close(io2)
     end
 
-    # decode ascii85dec
+    # decode ascii85dec Array{UInt8}
     for i in 1:length(plaintext)
         a85arr = zeros(UInt8, length(a85text[i]))
         plainarr = zeros(UInt8, length(plaintext[i]))
@@ -82,7 +82,17 @@ a85text = Array{String}(undef, 0)
         end
         @test ascii85dec(a85arr) == plainarr
     end
+
+    # decode ascii85dec String
+    for i in 1:length(plaintext)
+        plainarr = zeros(UInt8, length(plaintext[i]))
+        for j in 1:length(plaintext[i])
+            plainarr[j] = plaintext[i][j]
+        end
+        @test ascii85dec(a85text[i]) == plainarr
+    end
 end
+
 
 @testset "binary" begin
     binaryhex = Array{String}(undef, 0)
