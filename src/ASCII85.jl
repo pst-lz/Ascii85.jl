@@ -251,7 +251,7 @@ function ascii85dec(in::String)
     out = Array{UInt8}(undef, 0)
     start = 1
     for k in 1:length(in)
-        if UInt8(in[k]) == 60 && UInt8(in[k + 1]) == 126
+        if in[k] == '<' && in[k + 1] == '~'
             start = k + 2
             break
         end
