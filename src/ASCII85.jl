@@ -49,6 +49,48 @@ function ascii85enc!(in::IO, out::IO)
     write(out, "~>")
 end
 
+function ascii85enc(inarr::Array{UInt8})
+    outstr :: String = "<~"
+    seg :: UInt32 = 0
+    segenc = zeros(UInt8, 5)
+    numseg = length(inarr) ÷ 4
+    if numseg >= 1
+        for j in 1:numseg
+            seg = UInt32(inarr[1+4*(j-1)]) << 24 + UInt32(inarr[2+4*(j-1)]) << 16 + UInt32(inarr[3+4*(j-1)]) << 8 + inarr[4+4*(j-1)]
+            if seg == 0
+                outstr *= 'z'
+            else
+                for i in 1:4
+                    segenc[6 - i] = (seg % 85) + 33
+                    seg ÷= 85
+                end
+                segenc[1] = seg +33
+                for i in 1:5
+                    outstr *= segenc[i]
+                end
+            end
+        end
+    end
+    padding = 0
+    while length(inarr) % 4 !=0
+        push!(inarr, 0)
+        padding += 1
+    end
+    if padding != 0
+        seg = UInt32(inarr[1 + numseg * 4]) << 24 + UInt32(inarr[2 + numseg * 4]) << 16 + UInt32(inarr[3 + numseg * 4]) << 8 + inarr[4 + numseg * 4]
+        for i in 1:4
+            segenc[6 - i] = (seg % 85) + 33
+            seg ÷= 85
+        end
+        segenc[1] = seg +33
+        for i in 1:(5 - padding)
+            outstr *= segenc[i]
+        end
+    end
+    outstr *= "~>"
+    return outstr
+end
+
 function ascii85dec!(in::IO, out::IO)
     # for IO with <~ ASCII85 ~>
     seekstart(in)

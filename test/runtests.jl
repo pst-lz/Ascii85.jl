@@ -93,6 +93,12 @@ end
         close(io2)
     end
 
+    # enc ascii85enc
+    for i in 1:length(binaryhex)
+        @test ascii85enc(hex2bytes(binaryhex[i])) == a85binary[i]
+    end
+
+
     # decode ascii85dec!
     for i in 1:length(a85binary)
         io1 = IOBuffer(a85binary[i])
