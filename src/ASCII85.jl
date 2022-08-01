@@ -249,14 +249,14 @@ end
 function ascii85dec(in::String)
     # for Bytearray with <~ ASCII85 ~>
     out = Array{UInt8}(undef, 0)
-    start = 3
-    # for k in 1:length(in)
-    #     if in[k] == '<' && in[k + 1] == '~'
-    #         start = k + 2
-    #         println(start)
-    #         break
-    #     end
-    # end
+    start = 1
+    for k in 1:length(in)
+        if in[k] == '<' && in[k + 1] == '~'
+            start = k + 2
+            println(start)
+            break
+        end
+    end
     seg::UInt32 = 0
     segtemp::UInt64 = 0
     byte1 = 0xff000000
@@ -266,6 +266,7 @@ function ascii85dec(in::String)
     i = 0
     for k in start:length(in)
         b = UInt8(in[k])
+        println(b)
         if b>=33 && b <= 117
             segtemp += (b-33)*85^(4-i)
             i += 1
