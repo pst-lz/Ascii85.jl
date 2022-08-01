@@ -253,6 +253,7 @@ function ascii85dec(in::String)
     for k in 1:length(in)
         if in[k] == '<' && in[k + 1] == '~'
             start = k + 2
+            println(start)
             break
         end
     end
