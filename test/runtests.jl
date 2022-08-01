@@ -50,7 +50,7 @@ a85text = Array{String}(undef, 0)
         close(io2)
     end
 
-    # enc ascii85enc
+    # enc ascii85enc Array{UInt8}
     for i in 1:length(plaintext)
         plainarr = zeros(UInt8, length(plaintext[i]))
         for j in 1:length(plaintext[i])
