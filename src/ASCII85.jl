@@ -266,7 +266,6 @@ function ascii85dec(in::String)
     i = 0
     for k in start:length(in)
         b = UInt8(in[k])
-        println(b)
         if b>=33 && b <= 117
             segtemp += (b-33)*85^(4-i)
             i += 1
@@ -285,7 +284,7 @@ function ascii85dec(in::String)
                 end 
             end
         elseif b == 126 # ~
-            if in[k+1] == 62 # finish mark ~>
+            if in[k+1] == '>' # finish mark ~>
                 if i > 0
                     b = 117
                     for j in i:4
