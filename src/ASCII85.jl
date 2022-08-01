@@ -66,7 +66,7 @@ function ascii85enc(inarr::Array{UInt8})
                 end
                 segenc[1] = seg +33
                 for i in 1:5
-                    outstr *= segenc[i]
+                    outstr *= Char(segenc[i])
                 end
             end
         end
@@ -84,7 +84,7 @@ function ascii85enc(inarr::Array{UInt8})
         end
         segenc[1] = seg +33
         for i in 1:(5 - padding)
-            outstr *= segenc[i]
+            outstr *= Char(segenc[i])
         end
     end
     outstr *= "~>"
