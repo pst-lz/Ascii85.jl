@@ -56,7 +56,7 @@ a85text = Array{String}(undef, 0)
         for j in 1:length(plaintext[i])
             plainarr[j] = plaintext[i][j]
         end
-        @test ascii85enc(plainarr) = a85text[i]    
+        @test ascii85enc(plainarr) == a85text[i]    
     end
     
     # decode ascii85dec!
