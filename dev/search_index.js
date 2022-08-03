@@ -1,3 +1,3 @@
 var documenterSearchIndex = {"docs":
-[{"location":"#Ascii85.jl","page":"Ascii85.jl","title":"Ascii85.jl","text":"","category":"section"},{"location":"","page":"Ascii85.jl","title":"Ascii85.jl","text":"Documentation for Ascii85.jl","category":"page"}]
+[{"location":"index.html#Ascii85.jl","page":"Index","title":"Ascii85.jl","text":"","category":"section"},{"location":"index.html","page":"Index","title":"Index","text":"Documentation for Ascii85.jl","category":"page"}]
 }
