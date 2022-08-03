@@ -1,4 +1,7 @@
 # Ascii85.jl
+
+[![Build status (Github Actions)](https://github.com/pst-lz/Ascii85.jl/workflows/CI/badge.svg)](https://github.com/pst-lz/Ascii85.jl)
+
 ASCII85 in Julia
 
 Encode and decoce ASCII85 (Adobe version) in Julia.

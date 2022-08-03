@@ -4,7 +4,10 @@ using Ascii85
 push!(LOAD_PATH,"../src/")
 makedocs(
     sitename = "Ascii85.jl Documentation",
-    format = Documenter.HTML(),
+    pages = [
+        "Index" => "index.md"
+    ],
+    format = Documenter.HTML(prettyurls = false),
     modules = [Ascii85]
 )
 
@@ -12,5 +15,6 @@ makedocs(
 # See "Hosting Documentation" and deploydocs() in the Documenter manual
 # for more information.
 deploydocs(
-    repo = "https://github.com/pst-lz/Ascii85.jl"
+    repo = "github.com/pst-lz/Ascii85.jl.git",
+    devbranch = "main"
 )
