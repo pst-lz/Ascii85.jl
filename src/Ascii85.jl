@@ -4,6 +4,14 @@ module Ascii85
 
 export ascii85enc!, ascii85dec!, ascii85enc, ascii85dec
 
+"""
+    ascii85enc!(in::IO, out::IO)
+    converts binary data to ASCII85 (Adobe style with <~ ~>)
+    # Arguments
+    - `in::IO`: an IO with binary data
+    - `out::IO`: an empty IO for the ASCII85
+"""
+
 function ascii85enc!(in::IO, out::IO)
     seekstart(in)
     seekstart(out)
@@ -49,6 +57,15 @@ function ascii85enc!(in::IO, out::IO)
     write(out, "~>")
 end
 
+"""
+    ascii85enc(inarr::Array{UInt8})
+    converts binary data to ASCII85 (Adobe style with <~ ~>)
+    # Arguments
+    - `inarr::Array{UInt8}`: an IO with binary data
+    returns ASCII85 as String
+"""
+
+
 function ascii85enc(inarr::Array{UInt8})
     outstr :: String = "<~"
     seg :: UInt32 = 0
@@ -90,6 +107,14 @@ function ascii85enc(inarr::Array{UInt8})
     outstr *= "~>"
     return outstr
 end
+
+"""
+    ascii85dec!(in::IO, out::IO)
+    converts ASCII85 (Adobe style with <~ ~>) to binary data 
+    # Arguments
+    - `in::IO`: an IO with ASCII85
+    - `out::IO`: an empty IO for the binary data
+"""
 
 function ascii85dec!(in::IO, out::IO)
     # for IO with <~ ASCII85 ~>
@@ -165,6 +190,14 @@ function ascii85dec!(in::IO, out::IO)
         end # 0 to 32 whitespace to be ignored
     end
 end
+
+"""
+    ascii85dec(in)
+    converts ASCII85 (Adobe style with <~ ~>) to binary data 
+    # Arguments
+    - `in::Array{UInt8}` or `in::String`: the ASCII85 to decode
+    returns the binary data as Array{UInt8}
+"""
 
 function ascii85dec(in::Array{UInt8})
     # for Bytearray with <~ ASCII85 ~>
