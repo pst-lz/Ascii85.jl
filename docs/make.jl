@@ -5,10 +5,10 @@ push!(LOAD_PATH,"../src/")
 makedocs(
     sitename = "Ascii85.jl Documentation",
     pages = [
-        "Index" => "index.md"
+        "Index" => "index.md",
+        "Ascii85" => "Ascii85.md",
     ],
-    format = Documenter.HTML(prettyurls = false),
-    modules = [Ascii85]
+    format = Documenter.HTML(prettyurls = false)
 )
 
 # Documenter can also automatically deploy documentation to gh-pages.
