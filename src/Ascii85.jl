@@ -12,11 +12,11 @@ export ascii85enc!, ascii85dec!, ascii85enc, ascii85dec
     converts binary data to ASCII85 (Adobe style with <~ ~>)
     # Arguments
     - `in::IO`: an IO with binary data
-    - `out::IO`: an empty IO for the ASCII85
+    - `out::IO`: an IO for the ASCII85
 """
 function ascii85enc!(in::IO, out::IO)
     seekstart(in)
-    seekstart(out)
+    #seekstart(out)
     write(out, "<~")
     inarr = Array{UInt8}(undef, 0)
     inarr = read(in)
@@ -65,6 +65,11 @@ end
     # Arguments
     - `inarr::Array{UInt8}`: an IO with binary data
     returns ASCII85 as String
+
+    # Examples
+    ```jldoctest
+    julia> a = ascii85enc(hex2bytes("123456780000000012345678abcd"))
+    "<~&i<X6z&i<X6X3C~>"
 """
 function ascii85enc(inarr::Array{UInt8})
     outstr :: String = "<~"
@@ -196,6 +201,25 @@ end
     # Arguments
     - `in::Array{UInt8}` or `in::String`: the ASCII85 to decode
     returns the binary data as Array{UInt8}
+
+    # Examples
+    ```jldoctest
+    julia> b = ascii85dec("<~&i<X6z&i<X6X3C~>")
+    14-element Vector{UInt8}:
+    0x12
+    0x34
+    0x56
+    0x78
+    0x00
+    0x00
+    0x00
+    0x00
+    0x12
+    0x34
+    0x56
+    0x78
+    0xab
+    0xcd
 """
 function ascii85dec(in::Array{UInt8})
     # for Bytearray with <~ ASCII85 ~>
