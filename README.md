@@ -1,6 +1,7 @@
 # Ascii85.jl
 
 [![Build status (Github Actions)](https://github.com/pst-lz/Ascii85.jl/workflows/CI/badge.svg)](https://github.com/pst-lz/Ascii85.jl)
+[![codecov.io](http://codecov.io/github/pst-lz/Ascii85.jl/coverage.svg?branch=main)](http://codecov.io/github/pst-lz/Ascii85.jl?branch=main)
 [![](https://img.shields.io/badge/docs-stable-blue.svg)](https://pst-lz.github.io/Ascii85.jl/stable)
 [![](https://img.shields.io/badge/docs-dev-blue.svg)](https://pst-lz.github.io/Ascii85.jl/dev)
 
