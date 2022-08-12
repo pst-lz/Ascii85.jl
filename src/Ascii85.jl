@@ -1,6 +1,9 @@
-module Ascii85
+"""
+    Ascii85
 
-# https://en.wikipedia.org/wiki/Ascii85
+    ASCII85 in Julia
+"""
+module Ascii85
 
 export ascii85enc!, ascii85dec!, ascii85enc, ascii85dec
 
@@ -11,7 +14,6 @@ export ascii85enc!, ascii85dec!, ascii85enc, ascii85dec
     - `in::IO`: an IO with binary data
     - `out::IO`: an empty IO for the ASCII85
 """
-
 function ascii85enc!(in::IO, out::IO)
     seekstart(in)
     seekstart(out)
@@ -64,8 +66,6 @@ end
     - `inarr::Array{UInt8}`: an IO with binary data
     returns ASCII85 as String
 """
-
-
 function ascii85enc(inarr::Array{UInt8})
     outstr :: String = "<~"
     seg :: UInt32 = 0
@@ -115,7 +115,6 @@ end
     - `in::IO`: an IO with ASCII85
     - `out::IO`: an empty IO for the binary data
 """
-
 function ascii85dec!(in::IO, out::IO)
     # for IO with <~ ASCII85 ~>
     seekstart(in)
@@ -198,7 +197,6 @@ end
     - `in::Array{UInt8}` or `in::String`: the ASCII85 to decode
     returns the binary data as Array{UInt8}
 """
-
 function ascii85dec(in::Array{UInt8})
     # for Bytearray with <~ ASCII85 ~>
     out = Array{UInt8}(undef, 0)
