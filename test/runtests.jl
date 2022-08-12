@@ -145,6 +145,31 @@ end
 
 end
 
+@testset "errors" begin
+    # test with errors
+    a85ebinary = Array{String}(undef, 0)
+
+    push!(a85ebinary, "<~&i<Xz6&i<X6X3C~>") # wrong z
+    push!(a85ebinary, "<~&i<X6zuuuu&i<X6X3C~>") # > 4294967296
+    push!(a85ebinary, "<~uu~>") # incorrect ASCII85 (error in last segment)
+    push!(a85ebinary, "<~&i<X6z&i<X6X3C~4") # irregular ending (~ without >)
+    push!(a85ebinary, "<~&i<X6z&i<X6X3vC~>") # irregular Char
+    push!(a85ebinary, "<~&i<X6z&i<Xw6X3C~>") # irregular Char
+    for i in 1:length(a85ebinary)
+        @test_throws ErrorException ascii85dec(a85ebinary[i])
+    end
+    for i in 1:length(a85ebinary)
+        io1 = IOBuffer(a85ebinary[i])
+        io2 = IOBuffer()
+        @test_throws ErrorException ascii85dec!(io1, io2)
+        close(io1)
+        close(io2)
+    end
+
+
+    
+
+end
 
 
 
