@@ -155,9 +155,23 @@ end
     push!(a85ebinary, "<~&i<X6z&i<X6X3C~4") # irregular ending (~ without >)
     push!(a85ebinary, "<~&i<X6z&i<X6X3vC~>") # irregular Char
     push!(a85ebinary, "<~&i<X6z&i<Xw6X3C~>") # irregular Char
+
+    # decode ascii85dec!
     for i in 1:length(a85ebinary)
         @test_throws ErrorException ascii85dec(a85ebinary[i])
     end
+
+    # decode ascii85dec Array{UInt8}
+    for i in 1:length(a85ebinary)
+        a85ebarr = zeros(UInt8, length(a85ebinary[i]))
+        for j in 1:length(a85ebinary[i])
+            a85ebarr[j] = a85ebinary[i][j]
+        end
+        @test_throws ErrorException ascii85dec(a85ebinary[i])
+    end
+
+
+    # decode ascii85dec String
     for i in 1:length(a85ebinary)
         io1 = IOBuffer(a85ebinary[i])
         io2 = IOBuffer()
@@ -165,10 +179,6 @@ end
         close(io1)
         close(io2)
     end
-
-
-    
-
 end
 
 
