@@ -57,6 +57,7 @@ function ascii85enc!(in::IO, out::IO)
         end
     end
     write(out, "~>")
+    return nothing
 end
 
 """
@@ -193,6 +194,7 @@ function ascii85dec!(in::IO, out::IO)
             break # irregular Char
         end # 0 to 32 whitespace to be ignored
     end
+    return nothing
 end
 
 """

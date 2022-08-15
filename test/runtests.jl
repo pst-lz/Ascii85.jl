@@ -167,7 +167,7 @@ end
         for j in 1:length(a85ebinary[i])
             a85ebarr[j] = a85ebinary[i][j]
         end
-        @test_throws ErrorException ascii85dec(a85ebinary[i])
+        @test_throws ErrorException ascii85dec(a85ebarr)
     end
 
 
@@ -175,7 +175,7 @@ end
     for i in 1:length(a85ebinary)
         io1 = IOBuffer(a85ebinary[i])
         io2 = IOBuffer()
-        @test_throws ErrorException ascii85dec!(io1, io2)
+        @test_throws ErrorException ascii85dec(a85ebinary[i])
         close(io1)
         close(io2)
     end
