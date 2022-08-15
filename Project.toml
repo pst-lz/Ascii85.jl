@@ -1,7 +1,7 @@
 name = "Ascii85"
 uuid = "d66a24ed-3b8b-4cb5-acc0-191d405a6575"
 authors = ["Peter Stehring <p.stehring@gmail.com>"]
-version = "0.1.0"
+version = "0.1.1"
 
 [compat]
 julia = "1.6"
