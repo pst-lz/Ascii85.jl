@@ -307,7 +307,7 @@ function ascii85dec(in::String)
     # for Bytearray with <~ ASCII85 ~>
     out = Array{UInt8}(undef, 0)
     start = 1
-    for k in 1:length(in)
+    for k in firstindex(in):lastindex(in)
         if in[k] == '<' && in[k + 1] == '~'
             start = k + 2
             break
