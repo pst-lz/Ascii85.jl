@@ -10,6 +10,7 @@ Ascii85
 Modules = [Ascii85]
 Order   = [:constant, :type, :function, :macro]
 ```
+
 ## Detailed API
 
 ```@autodocs
