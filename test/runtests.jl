@@ -52,10 +52,7 @@ a85text = Array{String}(undef, 0)
 
     # enc ascii85enc
     for i in 1:length(plaintext)
-        plainarr = zeros(UInt8, length(plaintext[i]))
-        for j in 1:length(plaintext[i])
-            plainarr[j] = plaintext[i][j]
-        end
+        plainarr = Vector{UInt8}(plaintext[i])
         @test ascii85enc(plainarr) == a85text[i]    
     end
     
@@ -72,23 +69,14 @@ a85text = Array{String}(undef, 0)
 
     # decode ascii85dec Array{UInt8}
     for i in 1:length(plaintext)
-        a85arr = zeros(UInt8, length(a85text[i]))
-        plainarr = zeros(UInt8, length(plaintext[i]))
-        for j in 1:length(a85text[i])
-            a85arr[j] = a85text[i][j]
-        end
-        for j in 1:length(plaintext[i])
-            plainarr[j] = plaintext[i][j]
-        end
+        a85arr = Vector{UInt8}(a85text[i])
+        plainarr = Vector{UInt8}(plaintext[i])
         @test ascii85dec(a85arr) == plainarr
     end
 
     # decode ascii85dec String
     for i in 1:length(plaintext)
-        plainarr = zeros(UInt8, length(plaintext[i]))
-        for j in 1:length(plaintext[i])
-            plainarr[j] = plaintext[i][j]
-        end
+        plainarr = Vector{UInt8}(plaintext[i])
         @test ascii85dec(a85text[i]) == plainarr
     end
 end
@@ -131,10 +119,7 @@ end
 
     # decode ascii85dec Array{UInt8}
     for i in 1:length(a85binary)
-        a85barr = zeros(UInt8, length(a85binary[i]))
-        for j in 1:length(a85binary[i])
-            a85barr[j] = a85binary[i][j]
-        end
+        a85barr = Vector{UInt8}(a85binary[i])
         @test ascii85dec(a85barr) == hex2bytes(binaryhex[i])
     end
 
@@ -155,6 +140,7 @@ end
     push!(a85ebinary, "<~&i<X6z&i<X6X3C~4") # irregular ending (~ without >)
     push!(a85ebinary, "<~&i<X6z&i<X6X3vC~>") # irregular Char
     push!(a85ebinary, "<~&i<X6z&i<Xw6X3C~>") # irregular Char
+    push!(a85ebinary, "<~&iü<X6z&i<X6X3C~>") # irregular Char
 
     # decode ascii85dec!
     for i in 1:length(a85ebinary)
@@ -163,10 +149,7 @@ end
 
     # decode ascii85dec Array{UInt8}
     for i in 1:length(a85ebinary)
-        a85ebarr = zeros(UInt8, length(a85ebinary[i]))
-        for j in 1:length(a85ebinary[i])
-            a85ebarr[j] = a85ebinary[i][j]
-        end
+        a85ebarr = Vector{UInt8}(a85ebinary[i])
         @test_throws ErrorException ascii85dec(a85ebarr)
     end
 

@@ -152,7 +152,7 @@ function ascii85dec!(in::IO, out::IO)
                     segtemp = 0
                 else
                     error("> 4294967296")
-                    break
+                    # break
                 end 
             end
         elseif b == 126 # ~
@@ -173,13 +173,13 @@ function ascii85dec!(in::IO, out::IO)
                         end
                     else
                         error("incorrect ASCII85 (error in last segment)")
-                        break # error
+                        # break 
                     end
                 end
                 break # finish mark ~>, regular end
             else
                 error("irregular ending (~ without >)")
-                break # irregular end
+                # break # irregular end
             end
         elseif b == 122 # regular z
             if i == 0 # regular z
@@ -187,11 +187,11 @@ function ascii85dec!(in::IO, out::IO)
                 write(out, seg)
             else
                 error("irregular placed z")
-                break # irregular z
+                # break # irregular z
             end
         elseif (b > 117 && b <= 121) || (b >= 123 && b <= 125) || b >= 127
             error("irregular Char")
-            break # irregular Char
+            # break # irregular Char
         end # 0 to 32 whitespace to be ignored
     end
     return nothing
@@ -256,7 +256,7 @@ function ascii85dec(in::Array{UInt8})
                     segtemp = 0
                 else
                     error("> 4294967296")
-                    break
+                    # break
                 end 
             end
         elseif b == 126 # ~
@@ -277,13 +277,13 @@ function ascii85dec(in::Array{UInt8})
                         end
                     else
                         error("incorrect ASCII85 (error in last segment)")
-                        break # error
+                        # break # error
                     end
                 end
                 break # finish mark ~>, regular end
             else
                 error("irregular ending (~ without >)")
-                break # irregular end
+                # break # irregular end
             end
         elseif b == 122 # regular z
             if i == 0 # regular z
@@ -293,18 +293,17 @@ function ascii85dec(in::Array{UInt8})
                 end
             else
                 error("irregular placed z")
-                break # irregular z
+                # break # irregular z
             end
         elseif (b > 117 && b <= 121) || (b >= 123 && b <= 125) || b >= 127
             error("irregular Char")
-            break # irregular Char
+            # break # irregular Char
         end # 0 to 32 whitespace to be ignored
     end
     return out
 end
 
 function ascii85dec(in::String)
-    # for Bytearray with <~ ASCII85 ~>
     out = Array{UInt8}(undef, 0)
     start = 1
     for k in firstindex(in):lastindex(in)
@@ -336,7 +335,7 @@ function ascii85dec(in::String)
                     segtemp = 0
                 else
                     error("> 4294967296")
-                    break
+                    # break
                 end 
             end
         elseif b == 126 # ~
@@ -357,13 +356,13 @@ function ascii85dec(in::String)
                         end
                     else
                         error("incorrect ASCII85 (error in last segment)")
-                        break # error
+                        # break # error
                     end
                 end
                 break # finish mark ~>, regular end
             else
                 error("irregular ending (~ without >)")
-                break # irregular end
+                # break # irregular end
             end
         elseif b == 122 # regular z
             if i == 0 # regular z
@@ -373,15 +372,14 @@ function ascii85dec(in::String)
                 end
             else
                 error("irregular placed z")
-                break # irregular z
+                # break # irregular z
             end
         elseif (b > 117 && b <= 121) || (b >= 123 && b <= 125) || b >= 127
             error("irregular Char")
-            break # irregular Char
+            # break # irregular Char
         end # 0 to 32 whitespace to be ignored
     end
     return out
 end
 
 end # module
-
